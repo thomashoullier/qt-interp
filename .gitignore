@@ -1,6 +1,7 @@
 # Files being edited by Emacs or Vim
 *#
 *~
+*.swp
 
 ## From https://github.com/github/gitignore/blob/master/C%2B%2B.gitignore
 ## (CC-0 License)
@@ -37,3 +38,4 @@
 *.exe
 *.out
 *.app
+/build
