@@ -17,6 +17,10 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -O2 -Wextra")
 set(CMAKE_SOURCE_DIR ${CMAKE_BINARY_DIR}/src)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-add_executable(main ./src/main.cpp)
+include_directories(src)
+
+add_executable(main
+               src/chartview.cpp
+               src/main.cpp)
 
 target_link_libraries(main PUBLIC Qt::Core Qt::Charts Qt::Gui)
