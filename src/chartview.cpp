@@ -17,6 +17,12 @@ ChartView::ChartView() : QChartView(new QChart())
   chart()->createDefaultAxes();
   chart()->axes(Qt::Horizontal).first()->setRange(-1, 1);
   chart()->axes(Qt::Vertical).first()->setRange(-0.5, 0.5);
+
+  // TODO: * Use a QXYSeries instead of the more complicated ScatterSeries?
+  // * Clip the possible movement of points to the chart area.
+  // * Display the point coordinates while dragging.
+  connect(points, &QScatterSeries::pressed, this,
+          &ChartView::handlePressedPoint);
 }
 
 ChartView::~ChartView()
@@ -32,8 +38,29 @@ void ChartView::connectPointLabel (QLabel *point_label)
 
 void ChartView::handleHoveredPoint(const QPointF &point)
 {
-  //std::cout << point.x() << " ; " << point.y() << std::endl;
   QString xstr = QString::number(point.x());
   QString ystr = QString::number(point.y());
   point_coords->setText(xstr + " ; " + ystr );
+}
+
+void ChartView::handlePressedPoint(const QPointF &point)
+{
+  dragp = true;
+  pressed_point = &point;
+}
+
+void ChartView::mouseMoveEvent(QMouseEvent *event)
+{
+  if (dragp == true) {
+    auto mousePos = event->pos();
+    QPointF mouseOnChart = chart()->mapToValue(mousePos);
+    points->replace(*pressed_point, mouseOnChart);
+  }
+  QChartView::mouseMoveEvent(event);
+}
+
+void ChartView::mouseReleaseEvent(QMouseEvent *event)
+{
+  dragp = false;
+  QChartView::mouseReleaseEvent(event);
 }
