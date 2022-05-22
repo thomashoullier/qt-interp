@@ -8,7 +8,11 @@
 #include <QString>
 #include <QMouseEvent>
 #include <QValueAxis>
+#include <QSplineSeries>
+
 #include <iostream>
+#include <vector>
+#include <ranges>
 
 QT_USE_NAMESPACE
 
@@ -33,8 +37,15 @@ private:
   const QPointF *pressed_point; // Reference to the point being dragged.
   bool dragp = false; // Are we currently in a dragging action?
   const QValueAxis *xaxis, *yaxis; // Store axes for easy access.
+  QSplineSeries *poly_points; // Series holding the display interpolation points
+  // Coefficients of interpolation polynomials. Low orders first.
+  std::vector<double> poly_coeffs;
 
   bool pointInChartp(const QPointF &point); // Is point in the visible chart?
+  // Fill poly_points with a sampling of points in current chart area.
+  void fillPolyPoints(int numPoints);
+  void updatePolyPoints(); // Recompute poly_points according to poly_coeffs.
+  double compYpoly(double x); // Evaluate poly_coeffs at point x.
 };
 
 #endif // CHARTVIEW_H
