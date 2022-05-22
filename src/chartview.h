@@ -14,6 +14,8 @@
 #include <vector>
 #include <ranges>
 
+#include "utils.h"
+
 QT_USE_NAMESPACE
 
 class ChartView : public QChartView

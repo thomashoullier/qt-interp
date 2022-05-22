@@ -24,7 +24,6 @@ ChartView::ChartView() : QChartView(new QChart())
   // TODO: * Use a QXYSeries instead of the more complicated ScatterSeries?
   // * Display the point coordinates while dragging.
   // * Splines may be a bad idea. We get oscillations. Switch to LineSeries.
-  // * Put the nodes in a different file, put the interpolation in a different file.
 
   connect(points, &QScatterSeries::pressed, this,
           &ChartView::handlePressedPoint);
