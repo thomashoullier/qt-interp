@@ -43,6 +43,8 @@ private:
   QSplineSeries *poly_points; // Series holding the display interpolation points
   LagrangeInterp interpolator; // Interpolator instance.
 
+  void updateLabel(const QPointF &point); // Update the connected
+  //                                         label with the coordinates of point
   bool pointInChartp(const QPointF &point); // Is point in the visible chart?
   // Fill poly_points with a sampling of points in current chart area.
   void fillPolyPoints(int numPoints);

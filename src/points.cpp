@@ -2,9 +2,7 @@
 
 void ChartView::handleHoveredPoint(const QPointF &point)
 {
-  QString xstr = QString::number(point.x());
-  QString ystr = QString::number(point.y());
-  point_coords->setText(xstr + " ; " + ystr );
+  updateLabel(point);
 }
 
 void ChartView::handlePressedPoint(const QPointF &point)
@@ -20,11 +18,18 @@ void ChartView::mouseMoveEvent(QMouseEvent *event)
     QPointF mouseOnChart = chart()->mapToValue(mousePos);
     if (pointInChartp(mouseOnChart)) {
       points->replace(*pressed_point, mouseOnChart);
-      // Manage the interpolation
+      updateLabel(*pressed_point);
       updatePolyPoints();
     }
   }
   QChartView::mouseMoveEvent(event);
+}
+
+void ChartView::updateLabel(const QPointF &point)
+{
+  QString xstr = QString::number(point.x());
+  QString ystr = QString::number(point.y());
+  point_coords->setText(xstr + " ; " + ystr );
 }
 
 bool ChartView::pointInChartp(const QPointF &point)

@@ -20,10 +20,7 @@ ChartView::ChartView() : QChartView(new QChart())
   chart()->axes(Qt::Horizontal).first()->setRange(-1, 1);
   chart()->axes(Qt::Vertical).first()->setRange(-0.5, 0.5);
 
-  // TODO:
-  // * Display the point coordinates while dragging.
-  // * Create an init method for the interpolator.
-
+  // When draggable points are pressed.
   connect(points, &QScatterSeries::pressed, this,
           &ChartView::handlePressedPoint);
 
