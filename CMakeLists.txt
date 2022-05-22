@@ -20,7 +20,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 include_directories(src)
 
 add_executable(main
-               src/chartview.cpp
+               src/chartview.cpp src/points.cpp src/poly_points.cpp
                src/main.cpp)
 
 target_link_libraries(main PUBLIC Qt::Core Qt::Charts Qt::Gui)
