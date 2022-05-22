@@ -8,7 +8,8 @@ Qt6. Do not rely on the present work to build serious projects nor learn about
 correct C++ or Qt programming.
 
 In action:
-![demo movie](doc/demo.mp4)
+
+https://raw.githubusercontent.com/thomashoullier/qt-interp/master/doc/demo.mp4
 
 ## Interpolation implementation
 The interpolation is performed as detailed in [1]. It is a Lagrangian
