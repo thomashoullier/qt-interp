@@ -15,11 +15,10 @@ int main(int argc, char *argv[]){
 
   // Point coordinates position label.
   QLabel *lab = new QLabel();
-  // lab->setText("LABEL");
 
   // Chart area
   ChartView *chart = new ChartView();
-  chart->connectPointLabel(lab); // Connect to label for updates.
+  chart->connectPointLabel(lab); // Connect chart to label for updates.
 
   vbox->addWidget(lab);
   vbox->addWidget(chart);

@@ -14,7 +14,9 @@ class LagrangeInterp
 {
  public:
   bool isValid(); // Can we proceed with evaluation?
-  void updateNodes(const std::vector<Point> nodes);
+  void updateNodes(const std::vector<Point> nodes); // Update nodes
+  //                                                   and precompute weights.
+  // Evaluate the interpolator at arbitrary positions x.
   std::vector<double> evalInterp(const std::vector<double> x);
 
  private:

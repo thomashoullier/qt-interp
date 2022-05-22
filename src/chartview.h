@@ -34,21 +34,20 @@ private Q_SLOTS:
   void mouseReleaseEvent(QMouseEvent *event);
 
 private:
-  QScatterSeries *points;
-  QLabel *point_coords;
+  QScatterSeries *points; // Draggable nodes.
+  QLabel *point_coords; // Coordinates display of nodes, connected to
+  //                       external widget.
   const QPointF *pressed_point; // Reference to the point being dragged.
   bool dragp = false; // Are we currently in a dragging action?
   const QValueAxis *xaxis, *yaxis; // Store axes for easy access.
   QSplineSeries *poly_points; // Series holding the display interpolation points
-  // Coefficients of interpolation polynomials. Low orders first.
-  // std::vector<double> poly_coeffs;
   LagrangeInterp interpolator; // Interpolator instance.
 
   bool pointInChartp(const QPointF &point); // Is point in the visible chart?
   // Fill poly_points with a sampling of points in current chart area.
   void fillPolyPoints(int numPoints);
-  void updatePolyPoints(); // Recompute poly_points according to poly_coeffs.
-  double compYpoly(double x); // Evaluate poly_coeffs at point x.
+  void updatePolyPoints(); // Recompute poly_points according to current state.
+
   // External interface.
   // Convert series into a vector of Points.
   std::vector<Point> seriesToPoints(QXYSeries *series);
