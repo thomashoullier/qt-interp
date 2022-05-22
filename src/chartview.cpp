@@ -72,8 +72,12 @@ void ChartView::mouseMoveEvent(QMouseEvent *event)
     QPointF mouseOnChart = chart()->mapToValue(mousePos);
     if (pointInChartp(mouseOnChart)) {
       points->replace(*pressed_point, mouseOnChart);
+      // Manage the interpolation
+      poly_coeffs.back() = mouseOnChart.y();
+      updatePolyPoints();
     }
   }
+
   QChartView::mouseMoveEvent(event);
 }
 
@@ -110,7 +114,6 @@ void ChartView::updatePolyPoints()
     p.ry() = compYpoly(p.x());
   }
   poly_points->replace(pvec);
-  //poly_points->pointsReplaced();
 }
 
 double ChartView::compYpoly(double x)
