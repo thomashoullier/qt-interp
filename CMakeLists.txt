@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(cmake-template)
+project(qt-interp)
 
 set(CMAKE_AUTOMOC ON)
 
@@ -19,9 +19,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 include_directories(src)
 
-add_executable(main
+add_executable(qt-interp
 	       src/lagrange_interp.cpp
                src/chartview.cpp src/points.cpp src/poly_points.cpp
                src/main.cpp)
 
-target_link_libraries(main PUBLIC Qt::Core Qt::Charts Qt::Gui)
+target_link_libraries(qt-interp PRIVATE Qt6::Charts)

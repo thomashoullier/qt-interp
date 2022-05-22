@@ -9,7 +9,7 @@
 #include <QMouseEvent>
 #include <QValueAxis>
 
-#include <iostream>
+// #include <iostream>
 #include <vector>
 #include <ranges>
 
