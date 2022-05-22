@@ -13,14 +13,16 @@
 class LagrangeInterp
 {
  public:
-  LagrangeInterp();
-  int updateNodes(const std::vector<Point> nodes); // Return 1 in
-  //                                                  case of x values conflict
+  bool isValid(); // Can we proceed with evaluation?
+  void updateNodes(const std::vector<Point> nodes);
   std::vector<double> evalInterp(const std::vector<double> x);
 
  private:
   std::vector<Point> nodes; // Data nodes that generate the interpolation.
   std::vector<double> weights; // Precomputed data weights.
+  bool interp_validp = true; // Is there a valid interpolation to evaluate?
+  std::vector<double> prev_y; // Previously evaluated y values, returned in
+  //                             case of current non-valid interpolation.
 
   void updateWeights(); // Precompute Lagrange weights.
 };

@@ -21,7 +21,6 @@ void ChartView::mouseMoveEvent(QMouseEvent *event)
     if (pointInChartp(mouseOnChart)) {
       points->replace(*pressed_point, mouseOnChart);
       // Manage the interpolation
-      poly_coeffs.back() = mouseOnChart.y();
       updatePolyPoints();
     }
   }

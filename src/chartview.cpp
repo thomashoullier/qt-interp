@@ -6,14 +6,13 @@ ChartView::ChartView() : QChartView(new QChart())
 {
   setRenderHint(QPainter::Antialiasing);
 
-  // Define the draggable points.
+  // Define the draggable points and interpolation series.
   points = new QScatterSeries();
   *points << QPointF(-0.7, -0.3) << QPointF(-0.3, 0.1) << QPointF(0, 0.4)
           << QPointF(0.3, -0.1) << QPointF(0.7, -0.2);
-  chart()->addSeries(points);
-
   poly_points = new QSplineSeries();
   chart()->addSeries(poly_points);
+  chart()->addSeries(points);
 
   // Define graph general properties and display.
   chart()->legend()->hide();
@@ -24,6 +23,8 @@ ChartView::ChartView() : QChartView(new QChart())
   // TODO: * Use a QXYSeries instead of the more complicated ScatterSeries?
   // * Display the point coordinates while dragging.
   // * Splines may be a bad idea. We get oscillations. Switch to LineSeries.
+  // * The poly_points series is in front, which hampers selection of nodes.
+  // * Create an init method for the interpolator.
 
   connect(points, &QScatterSeries::pressed, this,
           &ChartView::handlePressedPoint);
@@ -34,9 +35,10 @@ ChartView::ChartView() : QChartView(new QChart())
 
   // Define the interpolated points series.
   fillPolyPoints(100);
-  poly_coeffs.push_back(0.1);
-  poly_coeffs.push_back(-0.1);
-  poly_coeffs.push_back(0.2);
+
+  // Initialize the interpolation.
+  interpolator.updateNodes(seriesToPoints(points));
+  interpolator.evalInterp(seriesToX(poly_points));
   updatePolyPoints();
 }
 
@@ -49,4 +51,24 @@ void ChartView::connectPointLabel (QLabel *point_label)
   point_coords = point_label;
   connect(points, &QScatterSeries::hovered, this,
           &ChartView::handleHoveredPoint);
+}
+
+std::vector<Point> ChartView::seriesToPoints(QXYSeries *series)
+{
+  std::vector<Point> nodes;
+  auto pvec {series->points()};
+  for (auto &p: pvec) {
+    nodes.push_back(Point(p.x(), p.y()));
+  }
+  return nodes;
+}
+
+std::vector<double> ChartView::seriesToX(QXYSeries *series)
+{
+  std::vector<double> x;
+  auto pvec {series->points()};
+  for (auto &p: pvec) {
+    x.push_back(p.x());
+  }
+  return x;
 }

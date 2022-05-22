@@ -3,8 +3,8 @@
 
 struct Point
 {
-  double x;
-  double y;
+  double x, y;
+  Point(double a, double b) { this->x = a; this->y = b; }
 };
 
 #endif // UTILS_H

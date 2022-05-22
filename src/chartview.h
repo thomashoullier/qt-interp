@@ -15,6 +15,7 @@
 #include <ranges>
 
 #include "utils.h"
+#include "lagrange_interp.h"
 
 QT_USE_NAMESPACE
 
@@ -41,13 +42,19 @@ private:
   const QValueAxis *xaxis, *yaxis; // Store axes for easy access.
   QSplineSeries *poly_points; // Series holding the display interpolation points
   // Coefficients of interpolation polynomials. Low orders first.
-  std::vector<double> poly_coeffs;
+  // std::vector<double> poly_coeffs;
+  LagrangeInterp interpolator; // Interpolator instance.
 
   bool pointInChartp(const QPointF &point); // Is point in the visible chart?
   // Fill poly_points with a sampling of points in current chart area.
   void fillPolyPoints(int numPoints);
   void updatePolyPoints(); // Recompute poly_points according to poly_coeffs.
   double compYpoly(double x); // Evaluate poly_coeffs at point x.
+  // External interface.
+  // Convert series into a vector of Points.
+  std::vector<Point> seriesToPoints(QXYSeries *series);
+  // Convert series into a vector of x coordinates.
+  std::vector<double> seriesToX(QXYSeries *series);
 };
 
 #endif // CHARTVIEW_H

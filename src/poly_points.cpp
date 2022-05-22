@@ -11,19 +11,13 @@ void ChartView::fillPolyPoints(int numPoints)
 
 void ChartView::updatePolyPoints()
 {
+  interpolator.updateNodes(seriesToPoints(points));
+  std::vector<double> y = interpolator.evalInterp(seriesToX(poly_points));
   auto pvec {poly_points->points()};
+  uint i = 0;
   for (auto &p: pvec) {
-    p.ry() = compYpoly(p.x());
+    p.ry() = y.at(i);
+    i++;
   }
   poly_points->replace(pvec);
-}
-
-double ChartView::compYpoly(double x)
-{ // We use Horner's scheme.
-  double y = 0;
-  auto reverse_view = std::ranges::reverse_view{poly_coeffs};
-  for (const auto& c : reverse_view) {
-    y = y * x + c;
-  }
-  return y;
 }
