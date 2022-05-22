@@ -1,14 +1,13 @@
 #ifndef CHARTVIEW_H
 #define CHARTVIEW_H
 
-#include <QtCharts/QChartGlobal>
-#include <QtCharts/QChartView>
-#include <QtCharts/QScatterSeries>
+#include <QChartView>
+#include <QScatterSeries>
+#include <QSplineSeries>
 #include <QLabel>
 #include <QString>
 #include <QMouseEvent>
 #include <QValueAxis>
-#include <QSplineSeries>
 
 #include <iostream>
 #include <vector>

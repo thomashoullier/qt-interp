@@ -20,10 +20,8 @@ ChartView::ChartView() : QChartView(new QChart())
   chart()->axes(Qt::Horizontal).first()->setRange(-1, 1);
   chart()->axes(Qt::Vertical).first()->setRange(-0.5, 0.5);
 
-  // TODO: * Use a QXYSeries instead of the more complicated ScatterSeries?
+  // TODO:
   // * Display the point coordinates while dragging.
-  // * Splines may be a bad idea. We get oscillations. Switch to LineSeries.
-  // * The poly_points series is in front, which hampers selection of nodes.
   // * Create an init method for the interpolator.
 
   connect(points, &QScatterSeries::pressed, this,

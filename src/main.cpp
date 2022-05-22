@@ -1,5 +1,5 @@
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QMainWindow>
+#include <QApplication>
+#include <QMainWindow>
 #include <QLabel>
 #include <QBoxLayout>
 #include "chartview.h"
@@ -15,7 +15,7 @@ int main(int argc, char *argv[]){
 
   // Point coordinates position label.
   QLabel *lab = new QLabel();
-  lab->setText("LABEL");
+  // lab->setText("LABEL");
 
   // Chart area
   ChartView *chart = new ChartView();
