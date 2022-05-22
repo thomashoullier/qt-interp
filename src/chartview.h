@@ -7,6 +7,7 @@
 #include <QLabel>
 #include <QString>
 #include <QMouseEvent>
+#include <QValueAxis>
 #include <iostream>
 
 QT_USE_NAMESPACE
@@ -31,6 +32,9 @@ private:
   QLabel *point_coords;
   const QPointF *pressed_point; // Reference to the point being dragged.
   bool dragp = false; // Are we currently in a dragging action?
+  const QValueAxis *xaxis, *yaxis; // Store axes for easy access.
+
+  bool pointInChartp(const QPointF &point); // Is point in the visible chart?
 };
 
 #endif // CHARTVIEW_H

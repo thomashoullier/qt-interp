@@ -19,10 +19,13 @@ ChartView::ChartView() : QChartView(new QChart())
   chart()->axes(Qt::Vertical).first()->setRange(-0.5, 0.5);
 
   // TODO: * Use a QXYSeries instead of the more complicated ScatterSeries?
-  // * Clip the possible movement of points to the chart area.
   // * Display the point coordinates while dragging.
   connect(points, &QScatterSeries::pressed, this,
           &ChartView::handlePressedPoint);
+
+  // Get chart axes.
+  xaxis = static_cast<const QValueAxis*>(chart()->axes(Qt::Horizontal).first());
+  yaxis = static_cast<const QValueAxis*>(chart()->axes(Qt::Vertical).first());
 }
 
 ChartView::~ChartView()
@@ -54,7 +57,9 @@ void ChartView::mouseMoveEvent(QMouseEvent *event)
   if (dragp == true) {
     auto mousePos = event->pos();
     QPointF mouseOnChart = chart()->mapToValue(mousePos);
-    points->replace(*pressed_point, mouseOnChart);
+    if (pointInChartp(mouseOnChart)) {
+      points->replace(*pressed_point, mouseOnChart);
+    }
   }
   QChartView::mouseMoveEvent(event);
 }
@@ -63,4 +68,15 @@ void ChartView::mouseReleaseEvent(QMouseEvent *event)
 {
   dragp = false;
   QChartView::mouseReleaseEvent(event);
+}
+
+bool ChartView::pointInChartp(const QPointF &point)
+{
+  auto xmin = xaxis->min();
+  auto xmax = xaxis->max();
+  auto ymin = yaxis->min();
+  auto ymax = yaxis->max();
+  bool inchartp = (point.x() <= xmax && point.x() >= xmin &&
+                   point.y() <= ymax && point.y() >= ymin);
+  return inchartp;
 }
