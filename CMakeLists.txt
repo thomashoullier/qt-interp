@@ -17,8 +17,6 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -O2 -Wextra")
 set(CMAKE_SOURCE_DIR ${CMAKE_BINARY_DIR}/src)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-include_directories(src)
-
 add_executable(qt-interp
 	       src/lagrange_interp.cpp
                src/chartview.cpp src/points.cpp src/poly_points.cpp
