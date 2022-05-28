@@ -11,7 +11,6 @@ In action:
 
 https://user-images.githubusercontent.com/48186690/169712513-6cfce915-51bb-473f-bc39-798811e284a7.mp4
 
-
 ## Interpolation implementation
 The interpolation is performed as detailed in [1]. It is a Lagrangian
 interpolation in barycentric formulation. This is not the focus of
